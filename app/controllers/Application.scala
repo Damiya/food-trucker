@@ -1,16 +1,15 @@
 package controllers
 
-import com.vividsolutions.jts.geom.{Geometry, Envelope, Point}
-import models.{MFFQueries, PermitStatus, FacilityType, MobileFoodFacility}
+import com.vividsolutions.jts.geom.Geometry
+import models.{FacilityType, MFFQueries, MobileFoodFacility, PermitStatus}
 import play.api._
-import play.api.libs.json.{JsResultException, JsValue, Json}
-import play.api.mvc._
-import play.api.libs.ws._
 import play.api.Play.current
 import play.api.db.slick._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import utils.{JSONFormatters, GeoHelper}
-import scala.concurrent.Future
+import play.api.libs.json.{JsResultException, JsValue, Json}
+import play.api.libs.ws._
+import play.api.mvc._
+import utils.{GeoHelper, JSONFormatters}
 
 object Application extends Controller with JSONFormatters {
 

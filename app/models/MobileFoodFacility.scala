@@ -63,7 +63,7 @@ object MFFQueries {
   val tableRef = TableQuery[MobileFoodFacilityTable]
 
   def insert(value: MobileFoodFacility)(implicit session: Session): Unit = {
-    // We need to check if the data already exists because some of the incoming data has multiple locationids for the same entry.
+    // We need to check if the data already exists because some of the incoming data has duplicate entries for a single locationid
     val exists = tableRef.filter(facility => facility.location_id === value.location_id).exists.run
     if (!exists) {
       tableRef.insert(value)

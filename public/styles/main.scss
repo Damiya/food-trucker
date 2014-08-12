@@ -1,0 +1,35 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+$fa-font-path: "../bower_components/font-awesome/fonts";
+// bower:scss
+@import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
+// endbower
+
+/* Space out content a bit */
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+.dropdown-menu {
+  & li.is-selected {
+    background-color: rgba(42, 255, 0, 0.9);
+  }
+}
+
+#map-controls {
+  .alert {
+    margin-top: 20px;
+    margin-bottom: 0px;
+  }
+}
+
+.top-margin {
+  margin-top: 20px;
+}
+
+#map {
+  min-height: 480px;
+  width: 100%;
+  height: 100%;
+}

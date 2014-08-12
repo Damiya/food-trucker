@@ -1,0 +1,46 @@
+@()
+
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>Food Trucker</title>
+        <meta name="description" content="">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="@routes.Assets.at("bower_components/font-awesome/css/font-awesome.css")" />
+
+
+        <link rel="stylesheet" href="@routes.Assets.at("bower_components/leaflet/dist/leaflet.css")">
+        <link rel="stylesheet" href="@routes.Assets.at("styles/main.css")">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row top-margin">
+                <div id="control-ct"></div>
+            </div>
+            <div class="row top-margin">
+                <div id="map"></div>
+            </div>
+        </div>
+
+        <script>
+            var Trucker = Trucker || {
+                React: {}
+            };
+        </script>
+
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
+
+        <script src="@routes.Assets.at("bower_components/jquery/dist/jquery.js")"></script>
+        <script src="@routes.Assets.at("bower_components/underscore/underscore.js")"></script>
+        <script src="@routes.Assets.at("bower_components/backbone/backbone.js")"></script>
+        <script src="@routes.Assets.at("bower_components/leaflet/dist/leaflet.js")"></script>
+        <script src="@routes.Assets.at("bower_components/leaflet/dist/leaflet-src.js")"></script>
+        <script src="@routes.Assets.at("bower_components/react/react-with-addons.js")"></script>
+        <script src="@routes.Assets.at("bower_components/react-bootstrap/react-bootstrap.js")"></script>
+
+        <script src="@routes.Assets.at("react/controls.js")"></script>
+        <script src="@routes.Assets.at("scripts/main.js")"></script>
+    </body>
+</html>

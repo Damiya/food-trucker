@@ -1,25 +1,40 @@
-$(window).load(function () {
-        'use strict';
+$(function () {
+    'use strict';
 
-        var geocoder = new google.maps.Geocoder();
-        var url = 'http://data.sfgov.org/resource/rqzj-sfat.json';
-        var leafletMap = L.map('map').setView([37.76572785787643,-122.4382495880127],15);
-        var markerLayer = L.layerGroup();
-        Trucker.Map = leafletMap;
+    var geocoder = new google.maps.Geocoder();
+    var initialView = {
+        center: new google.maps.LatLng(37.76572785787643, -122.4382495880127),
+        zoom: 15
+    };
+    var mapContainer = $('#map');
+    var googleMap = new google.maps.Map(mapContainer[0], initialView);
+    Trucker.Map = googleMap;
 
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(leafletMap);
+    var FacilityModel = Backbone.Model.extend();
+    var FacilitiesCollection = Backbone.Collection.extend({
+        model: FacilityModel,
+        url: '/api/facilities'
+    });
 
-        var reactContainer = $('#control-ct');
+    var collection = new FacilitiesCollection([]);
 
-        React.renderComponent(
-            Trucker.React.MapControls({
-                map: leafletMap,
-                geocoder: geocoder,
-                markerLayer: markerLayer
-            }),
-            reactContainer[0]
-        );
-    }
-);
+    var controlContainer = $('#control-ct');
+    React.renderComponent(
+        Trucker.React.MapControls({
+            map: googleMap,
+            geocoder: geocoder,
+            geolocationAvailable: navigator.geolocation
+        }),
+        controlContainer[0]
+    );
+
+    var listContainer = $('#list-ct');
+
+    React.renderComponent(
+        Trucker.React.ListControl({
+            map: googleMap,
+            collection: collection
+        }),
+        listContainer[0]
+    );
+});

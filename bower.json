@@ -7,7 +7,6 @@
     "font-awesome": "~4.1.0",
     "backbone": "~1.1.2",
     "underscore": "~1.6.0",
-    "leaflet": "~0.7.3",
     "react": "~0.11.1",
     "react-bootstrap": "~0.11.1"
   },

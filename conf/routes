@@ -5,7 +5,7 @@
 # Home page
 GET         /                      controllers.Application.index
 
-GET         /api/trucks            controllers.Application.findTrucks(neLat:Option[Double], neLng:Option[Double], swLat:Option[Double], swLng: Option[Double])
+GET         /api/facilities        controllers.FacilityController.findNearbyFacilities(lat:Double,lng:Double,limit:Int)
 POST        /admin/loadData        controllers.Application.loadData
 
 # Map static resources from the /public folder to the /assets URL path

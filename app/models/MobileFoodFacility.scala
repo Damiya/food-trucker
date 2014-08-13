@@ -76,7 +76,13 @@ object MFFQueries {
     tableRef.filter(_.location_id === id).firstOption
   }
 
-  def findWithinBoundingBox(boundingBox: Geometry)(implicit session:Session): List[MobileFoodFacility] = {
+  def findNearby(point: Geometry, limit: Int)(implicit session: Session): List[MobileFoodFacility] = {
+    tableRef.sortBy(_.location.distanceSphere(point))
+      .take(limit)
+      .list
+  }
+
+  def findWithinBoundingBox(boundingBox: Geometry)(implicit session: Session): List[MobileFoodFacility] = {
     tableRef.filter(boundingBox.bind contains _.location)
       .list
   }

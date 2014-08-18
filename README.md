@@ -27,5 +27,6 @@ Things I wish I'd gotten done:
     * Better view bounding - It's possible to zoom to an address and end up with markers outside the field of view
     
 * Secure Data loading endpoint - Some sort of admin authentication process.
+
 ### Links and Other notes
 Public Profile: [LinkedIn](http://linkedin.com/in/katevonroeder)

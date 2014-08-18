@@ -12,6 +12,13 @@ import scala.concurrent.Future
 
 object FacilityController extends Controller with JSONFormatters with Logging {
 
+  /**
+   * Looks up the nearest X facilities to a given Lat/Lng
+   * @param lat
+   * @param lng
+   * @param limit
+   * @return JSON Array of Facilities
+   */
   def findNearbyFacilities(lat: Double, lng: Double, limit: Int) = Action { implicit request =>
     DB.withSession { implicit s =>
       val targetPoint = GeoHelper.createPoint(lat, lng)
@@ -21,7 +28,7 @@ object FacilityController extends Controller with JSONFormatters with Logging {
   }
 
   def findFacilitiesWithinBoundingBox(maybeNeLat: Option[Double], maybeNeLng: Option[Double], maybeSwLat: Option[Double], maybeSwLng: Option[Double]) = Action { implicit request =>
-    val boundingBox: Option[Geometry] = for {// This option will be Some(Envelope) if all of the params are present
+    val boundingBox: Option[Geometry] = for {// This option will be Some(Geometry) if all of the params are present
       neLat <- maybeNeLat
       neLng <- maybeNeLng
       swLat <- maybeSwLat
@@ -39,9 +46,5 @@ object FacilityController extends Controller with JSONFormatters with Logging {
         BadRequest("Must specify all four params")
       }
     }
-
-
   }
-
-
 }

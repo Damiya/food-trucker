@@ -24,6 +24,18 @@ object PermitStatus extends Enumeration {
   val Status = Value("SUSPEND")
 }
 
+/**
+ * Represents a food truck or push cart.
+ * @param location_id Mostly-Unique ID representing a given location
+ * @param applicant Operator name
+ * @param facility_type
+ * @param location_description Cross streets
+ * @param address
+ * @param permit_id Operator's permit id
+ * @param permit_status Operator's permit status
+ * @param food_items Free response from operator with info on what facility sells
+ * @param location Point representing Lat Lng
+ */
 case class MobileFoodFacility(
                                location_id: Long,
                                applicant: String,
@@ -35,6 +47,10 @@ case class MobileFoodFacility(
                                food_items: Option[String],
                                location: Option[Point])
 
+/**
+ * Class used by the ORM to map a Model to its DB representation
+ * @param tag
+ */
 class MobileFoodFacilityTable(tag: Tag) extends Table[MobileFoodFacility](tag, "mobile_food_facility") {
   def location_id = column[Long]("location_id", O.NotNull)
 
@@ -58,16 +74,21 @@ class MobileFoodFacilityTable(tag: Tag) extends Table[MobileFoodFacility](tag, "
     location.?) <>(MobileFoodFacility.tupled, MobileFoodFacility.unapply)
 }
 
+/**
+ * Provides type-safe access to the DB
+ */
 object MFFQueries {
   val logger = Logger("application")
   val tableRef = TableQuery[MobileFoodFacilityTable]
 
   def insert(value: MobileFoodFacility)(implicit session: Session): Unit = {
-    // We need to check if the data already exists because some of the incoming data has duplicate entries for a single locationid
+    // As far as I can tell any duplicate entries represent the same location entered multiple ways.
+    // Possibly different corners of the intersection
     val exists = tableRef.filter(facility => facility.location_id === value.location_id).exists.run
     if (!exists) {
       tableRef.insert(value)
     } else {
+      // We could potentially do an update if it exists, but I'm just going to log them for now.
       logger.warn(s"Duplicate entry discarded for ${value.location_id}")
     }
   }

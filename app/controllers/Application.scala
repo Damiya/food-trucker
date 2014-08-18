@@ -12,7 +12,11 @@ import utils._
 object Application extends Controller with JSONFormatters with Logging {
   val dataSourceUrl = "http://data.sfgov.org/resource/rqzj-sfat.json"
 
-
+  /**
+   * Safely parse a JSON entry from the SFData site into a typed object we can work with
+   * @param json
+   * @return
+   */
   def jsonToMFF(json: JsValue): Option[MobileFoodFacility] = {
     try {
       val locationId = (json \ "objectid").as[String].toLong
@@ -27,7 +31,8 @@ object Application extends Controller with JSONFormatters with Logging {
       val permitStatus = PermitStatus.withName((json \ "status").as[String])
       val maybeFoodItems = (json \ "fooditems").asOpt[String]
       val maybeLocation = for {
-        latitude <- (json \ "latitude").asOpt[String] // We can't parse them out into Doubles directly, we'll have to parse to String and cast
+        // We can't parse them out into Doubles directly, we'll have to parse to String and cast
+        latitude <- (json \ "latitude").asOpt[String]
         longitude <- (json \ "longitude").asOpt[String]
       } yield {
         GeoHelper.createPoint(latitude.toDouble, longitude.toDouble)
@@ -40,6 +45,12 @@ object Application extends Controller with JSONFormatters with Logging {
     }
   }
 
+  /**
+   * Accesses the SFData endpoint and loads the data into the DB.
+   *
+   * Note: Dangerous to have this exposed but creating a whole Authentication/Admin system is outside the scope of this exercise.
+   * @return
+   */
   def loadData = Action.async { implicit request =>
     DB.withSession { implicit s =>
       WS.url(dataSourceUrl).get().map { response =>

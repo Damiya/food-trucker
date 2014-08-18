@@ -4,7 +4,7 @@ $(function () {
     var geocoder = new google.maps.Geocoder();
     var initialView = {
         center: new google.maps.LatLng(37.76572785787643, -122.4382495880127),
-        zoom: 15
+        zoom: 13
     };
     var mapContainer = $('#map');
     var googleMap = new google.maps.Map(mapContainer[0], initialView);

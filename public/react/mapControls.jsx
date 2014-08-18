@@ -3,8 +3,6 @@
 (function () {
     'use strict';
 
-    var DropdownButton = ReactBootstrap.DropdownButton;
-    var MenuItem = ReactBootstrap.MenuItem;
     var OverlayTrigger = ReactBootstrap.OverlayTrigger;
     var Tooltip = ReactBootstrap.Tooltip;
     var Alert = ReactBootstrap.Alert;

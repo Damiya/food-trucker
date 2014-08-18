@@ -26,5 +26,6 @@ Things I wish I'd gotten done:
     * Two way hovers - Hovering an icon on the map should highlight it in the list
     * Better view bounding - It's possible to zoom to an address and end up with markers outside the field of view
     
+* Secure Data loading endpoint - Some sort of admin authentication process.
 ### Links and Other notes
 Public Profile: [LinkedIn](http://linkedin.com/in/katevonroeder)
